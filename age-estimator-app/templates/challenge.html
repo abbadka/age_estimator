@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #4169e1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+      }
+      a:visited {
+          color: white;
+      }
+    </style>
+    <script></script>
+  </head>
+  <script>
+      var current_image = null;
+      var model_score = 0;
+      var user_score = 0;
+
+      /* compares the user guess with the model guess and updates the score */
+      function make_guess() {
+          var user_guess = parseFloat(document.getElementById('user-guess').value);
+          var model_prediction = parseFloat(current_image.predicted_age);
+          var actual_age = parseFloat(current_image.source_age);
+
+          var user_diff = Math.abs(user_guess - actual_age);
+          var model_diff = Math.abs(model_prediction - actual_age);
+          if (user_diff > model_diff) {
+              model_score += 1;
+              document.getElementById('model-score').innerText = model_score;
+              alert('The actual age is ' + actual_age + ', and my guess was: ' + model_prediction + '! One point for me :)')
+          } else {
+              user_score += 1;
+              document.getElementById('user-score').innerText = user_score;
+              alert('The actual age is ' + actual_age + ', and my guess was: ' + model_prediction + '! You get that point.')
+          }
+          document.getElementById('user-guess').value = '';
+          load_image();
+      }
+
+      /* load a new image to challenge the user */
+      function load_image() {
+        var ajax = new XMLHttpRequest();
+        ajax.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                current_image = JSON.parse(this.response);
+                var img = document.getElementById('target-image');
+                img.src = 'image/' + current_image.file_name;
+            }
+        };
+        ajax.open( "GET", '/challenge_image', true );
+        ajax.send( null );
+       
+      }
+  </script>
+  <body onload="load_image()">
+    <h2>How old is this person?</h2>
+    <img id="target-image" style="height: 250px" /> 
+    <br />
+    <div> <input type="number" id="user-guess" />
+        <button onclick="make_guess()">Guess</button></div>
+    <div>
+    <br />
+    <div><h1>Score:</h1><br /><br /><h2><b>Me:</b> <span id="model-score">0</span><span style="padding: 50px">&nbsp;</span><b>You:</b> <span id="user-score">0</span></h2></div>
+   <br />
+    <a href="/">Back</a>
+    </body>
+</html>

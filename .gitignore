@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*$py.class
+not_used
+/data/adience/*
+!/data/adience/*.md
+/data/cropped_faces/*.jpg
+/data/utk_full/*
+*.tar.gz
+.vscode
+.ipynb_checkpoints
+.DS_Store
+*.zip
+*.pages
+*.hdf5
+*.npy
