@@ -1,6 +1,6 @@
 # Age Estimator
 
-This project is the capstone project for **Udacity Machine Learning Engineer Nanodegree**.
+This project is the capstone project for **Udacity Machine Learning Engineer Nanodegree**. The goal behind this project is to build a model that predicts the age of a person given a photo that includes the face of the person. This model is used to build a basic application which - for entertainment purposes - allows a person to upload a photo, and predicts the age of the person. The application also includes a sampling of photos from the dataset, and asks the user to estimate the age of the given photo, and see if they can beat the estimation of the developed model.
 
 ## Getting Started
 
